@@ -1,23 +1,25 @@
 package application;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Optional;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -29,10 +31,10 @@ public class Main extends Application {
 			// Establecemos la imagen de fondo
 			anchor.setStyle("-fx-background-image: url(file:///C:/Users/paula/Downloads/mangoFondo.jpg)");
 
-			// Creamos un boton
-			Button pincha = new Button("Pinchame si te atreves ;) ");
+			// Creamos un checkBox
+			CheckBox pincha = new CheckBox("Márcame si Sí.");
 
-			// Le otorgamos un evento al boton cuando este sea pulsado
+			// Le otorgamos un evento al checkBox cuando sea pulsado
 			pincha.setOnMouseClicked(value -> {
 
 				// Creamos un objeto de la clase Alert que sea de tipo confirmacion
@@ -81,30 +83,16 @@ public class Main extends Application {
 					// Creamos un boton llamado cerrar
 					Button cerrar = new Button("Bye, mango");
 					// Le damos un evento para cuando sea pulsado
-					cerrar.setOnMousePressed(value3 -> {
+					cerrar.setOnMouseEntered(value3 -> {
 
-						// Cosa curiosa que he visto por internet, hace que se espere los milisegundos
-						// que le indicas para continuar la ejecucion
-						/*
-						 * try {
-						 * 
-						 * Thread.sleep(30 * 1000);
-						 * 
-						 * mangoStg.close(); } catch (Exception e) { System.out.println(e); }
-						 */
+						// Hacemos que cuando pase sobre el boton de cerrar se cambie su color
+						cerrar.setBackground(
+								new Background(new BackgroundFill(Color.CORAL, new CornerRadii(20.0), Insets.EMPTY)));
 
-						// Cerramos la ventana en donde sale la cancion
-						mangoStg.close();
-
-						// Creamos un objeto de tipo Desktop
-						Desktop enlace = Desktop.getDesktop();
-						try {
-							// Hacemos que se ejecute la url que nos llevara al video 'Bye, Bye' de David
-							// Civera
-							enlace.browse(new URI("https://www.youtube.com/watch?v=Y1n50Ihx1rw"));
-						} catch (IOException | URISyntaxException e) {
-							e.getMessage();
-						}
+						// Si pinchamos el boton, se cerrara la ventana
+						cerrar.setOnMousePressed(value4 -> {
+							mangoStg.close();
+						});
 
 					});
 
