@@ -9,7 +9,10 @@ import java.util.Optional;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -40,7 +43,12 @@ public class Main extends Application {
 
 				Optional<String> result = dialog.showAndWait();
 
-				if (result.get().equalsIgnoreCase("Barbara")) {
+				if (result.get().equalsIgnoreCase("Antonio")) {
+
+					Alert alert = new Alert(AlertType.INFORMATION);
+
+					alert.setHeaderText("AVISO");
+					alert.setContentText("Estás a punto de entrar en un nuevo mundo");
 
 					// Creamos un stage nuevo
 					Stage mangoStg = new Stage();
@@ -79,27 +87,25 @@ public class Main extends Application {
 					// Le damos un evento para cuando sea pulsado
 					cerrar.setOnMousePressed(value3 -> {
 
-						// Cosa curiosa que he visto por internet, hace que se espere los milisegundos
-						// que le indicas para continuar la ejecucion
-						/*
-						 * try {
-						 * 
-						 * Thread.sleep(30 * 1000);
-						 * 
-						 * mangoStg.close(); } catch (Exception e) { System.out.println(e); }
-						 */
+						Alert alert2 = new Alert(AlertType.CONFIRMATION);
 
-						// Cerramos la ventana en donde sale la cancion
-						mangoStg.close();
+						alert2.setTitle("Confirmación de salida");
+						alert2.setHeaderText("Has pulsado Cerrar");
+						alert2.setContentText("¿Estás seguro de que quieres salir de esta ventana?");
 
-						// Creamos un objeto de tipo Desktop
-						Desktop enlace = Desktop.getDesktop();
-						try {
-							// Hacemos que se ejecute la url que nos llevara al video 'Bye, Bye' de David
-							// Civera
-							enlace.browse(new URI("https://www.youtube.com/watch?v=Y1n50Ihx1rw"));
-						} catch (IOException | URISyntaxException e) {
-							e.getMessage();
+						Optional<ButtonType> respuesta = alert.showAndWait();
+						if (respuesta.get() == ButtonType.OK) {
+							mangoStg.close();
+
+							// Creamos un objeto de tipo Desktop
+							Desktop enlace = Desktop.getDesktop();
+							try {
+								// Hacemos que se ejecute la url que nos llevara al video 'Bye, Bye' de David
+								// Civera
+								enlace.browse(new URI("https://www.youtube.com/watch?v=Y1n50Ihx1rw"));
+							} catch (IOException | URISyntaxException e) {
+								e.getMessage();
+							}
 						}
 
 					});
