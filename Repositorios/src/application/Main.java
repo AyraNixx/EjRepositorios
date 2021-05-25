@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -110,11 +112,58 @@ public class Main extends Application {
 
 					});
 
+					MenuBar barra = new MenuBar();
+					Menu fruta = new Menu("Fruta");
+					fruta.setOnAction(value3 -> {
+						Desktop enlace = Desktop.getDesktop();
+						try {
+							enlace.browse(new URI("https://exoticfruitbox.com/frutas-exoticas/mango/"));
+						} catch (IOException | URISyntaxException e) {
+							e.getMessage();
+						}
+
+					});
+					Menu bebida = new Menu("Bebida");
+					bebida.setOnAction(value3 -> {
+						Desktop enlace = Desktop.getDesktop();
+						try {
+							enlace.browse(new URI(
+									"https://elcomidista.elpais.com/elcomidista/2017/07/26/receta/1501078553_734697.html"));
+						} catch (IOException | URISyntaxException e) {
+							e.getMessage();
+						}
+
+					});
+					Menu helado = new Menu("Helado");
+					helado.setOnAction(value3 -> {
+						Desktop enlace = Desktop.getDesktop();
+						try {
+							enlace.browse(new URI(
+									"https://www.guiadelnino.com/recetas-para-ninos-y-bebes/helados-y-sorbetes/helado-de-mango"));
+						} catch (IOException | URISyntaxException e) {
+							e.getMessage();
+						}
+
+					});
+					Menu postre = new Menu("Postre");
+					postre.setOnAction(value3 -> {
+						Desktop enlace = Desktop.getDesktop();
+						try {
+							enlace.browse(new URI(
+									"https://www.canalsur.es/rtva/cometelo-prepara-una-exotica-y-sencilla-tarta-de-mango/1492185.html"));
+						} catch (IOException | URISyntaxException e) {
+							e.getMessage();
+						}
+
+					});
+
+					barra.getMenus().addAll(fruta, bebida, helado, postre);
+
 					// Indicamos que los objetos del vbox iran en el centro
 					vbox.setAlignment(Pos.CENTER);
 
 					// Anadimos los nodos
-					vbox.getChildren().addAll(mango, cerrar);
+					vbox.getChildren().addAll(mango, cerrar, barra);
 
 					// Creamos una escena, se la establecemos al stage y lo mostramos
 					Scene escenaMango = new Scene(vbox, 750, 600);
